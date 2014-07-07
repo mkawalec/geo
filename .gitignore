@@ -1,0 +1,6 @@
+.*sw*
+build
+
+# Old C format
+*.h
+*.c
