@@ -7,25 +7,25 @@ set(HEADER_FILES
     )
 
 set(CPP_FILES
+    src/main.cpp
     ${HEADER_FILES}
     )
 
 
 message(status "${CMAKE_CURRENT_SOURCE_DIR}")
-add_executable(geo ${CPP_FILES})
+add_executable(db ${CPP_FILES})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -ffast-math -O2 -Wall -Wextra -Wno-ignored-qualifiers -pedantic -W -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Wno-ignored-qualifiers -pedantic -W -std=c++0x -g")
 
 unset(Boost_INCLUDE_DIR CACHE)
 unset(Boost_LIBRARY_DIRS CACHE)
-set(Boost_USE_STATIC_LIBS        ON)
-set(Boost_USE_MULTITHREADED      OFF)
-set(Boost_USE_STATIC_RUNTIME     ON)
-set(BOOST_ALL_DYN_LINK           OFF)   # force dynamic linking for all libraries
+set(Boost_USE_STATIC_LIBS        OFF)
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME     OFF)
+set(BOOST_ALL_DYN_LINK           ON)   # force dynamic linking for all libraries
 
 
-find_package(Boost 1.55 COMPONENTS asio program_options date_time REQUIRED)
-#ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
+find_package(Boost 1.54 COMPONENTS system program_options date_time REQUIRED)
 message(status "** Boost Include: ${Boost_INCLUDE_DIR}")
 message(status "** Boost Libraries: ${Boost_LIBRARY_DIRS}")
 message(status "** Boost Libraries: ${Boost_LIBRARIES}")
@@ -39,7 +39,7 @@ LINK_DIRECTORIES(
                  ${FFTW_LIBRARIES} 
                  )
 
-target_link_libraries(integrator -lm 
+target_link_libraries(db -lm 
                                     ${Boost_LIBRARIES} 
                      )
 
